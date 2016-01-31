@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script type="text/javascript">
+        var fname,lname,reply,country,email;
+        var s=0;
+        function Compare(strA,strB){
+    for(var result = 0, i = strA.length; i--;){
+        if(typeof strB[i] == 'undefined' || strA[i] == strB[i]);
+        else if(strA[i].toLowerCase() == strB[i].toLowerCase())
+            result++;
+        else
+            result += 4;
+    }
+    return 1 - (result + 4*Math.abs(strA.length - strB.length))/(2*(strA.length+strB.length));
+}
+function ask(inputid, outputid)
+{
+	var textin = document.getElementById(inputid);
+	var reply = textin.value;
+    if(reply.length==0){
+        response="nigga enter something";
+        return;
+    }
+    var log = document.getElementById(outputid);
+    switch (s)
+    {
+        case 0:{
+            names=reply.split(" ");
+            if(names.length==1) {
+                response = names[0] + " is your first name. What's your last name?";
+                fname = names[0];
+                s=1;
+            }
+            else{
+                response="May I know your email?";
+                fname=names[0];
+                lname=names[1];
+                s=2;
+            }
+            break;
+        }
+        case 1:{
+            response="May I know your email?";
+            lname=reply;
+            s=2;
+            break;
+        }
+        case 2:{
+            var p=/(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)/;
+            if(p.test(reply))
+            {
+                s=3;
+                response="Which country are you from?";
+                email=reply;
+            }
+            else{
+                response="I have years of experience doing this.You have entered invalid email.Enter again";
+            }
+            break;
+        }
+        case 3:{
+            var country_list = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua &amp; Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas"
+		,"Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia &amp; Herzegovina","Botswana","Brazil","British Virgin Islands"
+		,"Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon", "Canada", "Cape Verde","Cayman Islands","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica"
+		,"Cote D Ivoire","Croatia","Cruise Ship","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea"
+		,"Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana"
+		,"Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India"
+		,"Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kuwait","Kyrgyz Republic","Laos","Latvia"
+		,"Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Mauritania"
+		,"Mauritius","Mexico","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Namibia","Nepal","Netherlands","Netherlands Antilles","New Caledonia"
+		,"New Zealand","Nicaragua","Niger","Nigeria","Norway","Oman","Pakistan","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal"
+		,"Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre &amp; Miquelon","Samoa","San Marino","Satellite","Saudi Arabia","Senegal","Serbia","Seychelles"
+		,"Sierra Leone","Singapore","Slovakia","Slovenia","South Africa","South Korea","Spain","Sri Lanka","St Kitts &amp; Nevis","St Lucia","St Vincent","St. Lucia","Sudan"
+		,"Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad &amp; Tobago","Tunisia"
+		,"Turkey","Turkmenistan","Turks &amp; Caicos","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Venezuela","Vietnam","Virgin Islands (US)"
+		,"Yemen","Zambia","Zimbabwe"];
+            country_list=country_list.sort(function(a,b){
+                var d1=Compare(a,reply);
+                var d2=Compare(b,reply);
+                if(d1>d2) return -1;
+                if(d2>d1) return 1;
+                return 0;
+            });
+            country_list=country_list.slice(0,3)
+            if(Compare(country_list[0],reply)<0.9)
+            {
+                response="I didn't catch that. Please enter again. Did you mean  : "+country_list +" ?";
+            }
+            else {
+                response="All done";
+                s=4;
+                country=country_list[0];
+            }
+            break;
+        }
+        case 4:{
+            alert(fname+lname+email+country);
+        }
+    }
+    textin.value="";
+    log.innerHTML=response;
+  	}
+</script>
+</head>
+<body>
+    <div id="log" >
+		<p >What is your name?</p>
+	</div>
+
+		<p>
+			<input id="textin" type=text name=input style="width:300px;" />
+			<button id="btn" onclick="ask('textin','log')">GO</button>
+		</p>
+
+</body>
+</html>
