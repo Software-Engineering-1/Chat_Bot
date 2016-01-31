@@ -68,7 +68,8 @@ function ask(inputid, outputid)
         case 3:{
             response="Are you a student? Answer with a Yes or No.";
             s=4;
-            zipCode=reply
+            zipCode=reply;
+
             break;
         }
         case 4:{
@@ -130,7 +131,13 @@ function ask(inputid, outputid)
         case 7:{
             response = 'all done. Type anything to be amazed';
             endyear = reply;
-            s=8;
+            if(endyear-startyear<0)
+            {
+                response="Invalid. Please enter your start year again";
+                s=6;
+            }
+            else{
+            s=8;}
             break;
         }
         case 8:{
@@ -168,6 +175,7 @@ function ask(inputid, outputid)
         <p>
             <input id="textin" type=text name=input style="width:300px;" />
             <button id="btn" onclick="ask('textin','log')">GO</button>
+
         </p>
 
 </body>
