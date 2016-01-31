@@ -6,7 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initialize"></script>
     <script type="text/javascript">
-        var fname,lname,reply,country,email,zipCode;
+        var fname,lname,reply,country,email,zipCode,College,startyear,endyear,jobtitle,company;
         var stateName = '';
         var cityName = '';
         var s=0;
@@ -66,7 +66,7 @@ function ask(inputid, outputid)
             break;
         }
         case 3:{
-            response="All done";
+            response="Are you a student? Answer with a Yes or No.";
             s=4;
             zipCode=reply
             break;
@@ -100,11 +100,58 @@ function ask(inputid, outputid)
                 country = countryQueryable[0]['long_name'];
             }
           }
-          alert(stateName);
-          alert(cityName);
-          alert(country);
-      });
-            alert(fname+lname+email+zipCode);
+          //alert(stateName);
+          //alert(cityName);
+          //alert(country);
+        });
+           // alert(fname+lname+email+zipCode);
+            if(reply == 'Yes'){
+                response = 'Which School or College/University?';
+                s=5;
+            }
+            else{
+                response = 'What is your job title?';
+                s=9;
+            }
+            break;
+        }
+        case 5:{
+            response = 'What is your Start Year?';
+            College = reply;
+            s=6;
+            break;
+        }
+        case 6:{
+            response = 'End year/Expected end year?';
+            startyear = reply;
+            s=7;
+            break;
+        }
+        case 7:{
+            response = 'all done. Type anything to be amazed';
+            endyear = reply;
+            s=8;
+            break;
+        }
+        case 8:{
+            alert("First Name:"+fname+"\nLast Name:"+lname+"\nCountry:"+country+"\nState:"+stateName+"\nCity:"+cityName+"\nCollege:"+College+"\nStart Year:"+startyear+"\nEnd year:"+endyear);
+            break;
+        }
+        case 9:{
+            jobtitle=reply;
+            response = 'Which company?'
+            s=10;
+            break;
+        }
+        case 10:{
+            company=reply;
+            response= 'all done. Type anything to be amazed';
+            s=11;
+            break;
+        }
+        case 11:{
+            alert("First Name:"+fname+"\nLast Name:"+lname+"\nCountry:"+country+"\nState:"+stateName+"\nCity:"+cityName+"\nCompany:"+company+"\nJob title:"+jobtitle);
+            break;
         }
     }
 
