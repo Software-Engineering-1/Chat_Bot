@@ -14,17 +14,29 @@
     for(var result = 0, i = strA.length; i--;){
         if(typeof strB[i] == 'undefined' || strA[i] == strB[i]);
         else if(strA[i].toLowerCase() == strB[i].toLowerCase())
-            result++;
+            result++;a
         else
             result += 4;
     }
     return 1 - (result + 4*Math.abs(strA.length - strB.length))/(2*(strA.length+strB.length));
 }
+
+function getRadioValue(name)
+    {
+        console.log("HERE");
+        for (var i = 0; i < document.getElementsByName(name).length; i++)
+        {
+            if (document.getElementsByName(name)[i].checked)
+            {
+                return document.getElementsByName(name)[i].value;
+            }
+        }
+    }
 function ask(inputid, outputid)
 {
     var textin = document.getElementById(inputid);
     var reply = textin.value;
-    if(reply.length==0){
+    if(reply.length==0 && s!=4){
         response="nigga enter something";
         return;
     }
@@ -67,7 +79,10 @@ function ask(inputid, outputid)
         }
         case 3:{
             response="Are you a student? Answer with a Yes or No.";
+            document.getElementById("textin").style.display='none';
             s=4;
+            document.getElementById("kai").style.display='block';
+            
             zipCode=reply
             break;
         }
@@ -105,7 +120,11 @@ function ask(inputid, outputid)
           //alert(country);
         });
            // alert(fname+lname+email+zipCode);
-            if(reply == 'Yes' || reply == 'yes' || reply == 'YES'){
+
+            document.getElementById("textin").style.display='block';
+            document.getElementById("kai").style.display='none';
+            
+            if(getRadioValue("student")=="yes"){//reply == 'Yes' || reply == 'yes' || reply == 'YES'){
                 response = 'Which School or College/University?';
                 s=5;
             }
@@ -135,6 +154,7 @@ function ask(inputid, outputid)
         }
         case 8:{
             alert("First Name:"+fname+"\nLast Name:"+lname+"\nCountry:"+country+"\nState:"+stateName+"\nCity:"+cityName+"\nCollege:"+College+"\nStart Year:"+startyear+"\nEnd year:"+endyear);
+            s=12;
             break;
         }
         case 9:{
@@ -151,7 +171,12 @@ function ask(inputid, outputid)
         }
         case 11:{
             alert("First Name:"+fname+"\nLast Name:"+lname+"\nCountry:"+country+"\nState:"+stateName+"\nCity:"+cityName+"\nCompany:"+company+"\nJob title:"+jobtitle);
+            response = 'Are you over 18. Yes or No?'
+            s=12;
             break;
+        }
+        case 12:{
+
         }
     }
 
@@ -168,6 +193,11 @@ function ask(inputid, outputid)
         <p>
             <input id="textin" type=text name=input style="width:300px;" />
             <button id="btn" onclick="ask('textin','log')">GO</button>
+            <br>
+            <div id="kai" style="display:none">
+            <input type="radio" name="student" value="yes" checked="True" >Yes<br>
+            <input type="radio" name="student" value="no" >No<br>
+            </div>
         </p>
 
 </body>
